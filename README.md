@@ -13,6 +13,9 @@ A small, production-quality example of a Linux USB driver module that probes a t
 - Clean build via out-of-tree kernel module Makefile
 - SPDX headers and module metadata
 
+## Preview
+<img width="1500" height="1023" alt="image" src="https://github.com/user-attachments/assets/789b5086-d78f-4f30-acfd-c921fb4439c2" />
+
 ## Build
 Prerequisites: kernel headers for the running kernel present at `/lib/modules/$(uname -r)/build`.
 ```bash
