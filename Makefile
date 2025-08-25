@@ -1,25 +1,11 @@
-# Makefile for Enhanced SPI & Timer Driver Project
+obj-m += usb_driver.o
+usb_driver-objs := usb_driver.o usb_transfer.o
 
-CC = arm-none-eabi-gcc
-CFLAGS = -Wall -Wextra -std=c11 -Iinclude
-LDFLAGS = 
-SRC = src/SPI.c src/Timer.c src/main.c
-OBJ = $(SRC:.c=.o)
-TARGET = spi_timer.elf
+KDIR := /lib/modules/$(shell uname -r)/build
+PWD := $(shell pwd)
 
-all: $(TARGET)
-
-$(TARGET): $(OBJ)
-	$(CC) $(OBJ) -o $@ $(LDFLAGS)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+all:
+	$(MAKE) -C $(KDIR) M=$(PWD) modules
 
 clean:
-	rm -f $(OBJ) $(TARGET)
-
-# Test build (simulation)
-test: test/test_spi_timer.c src/SPI.c src/Timer.c
-	gcc -Wall -Wextra -std=c11 -Iinclude test/test_spi_timer.c src/SPI.c src/Timer.c -o test/test_spi_timer
-
-.PHONY: all clean test
+	$(MAKE) -C $(KDIR) M=$(PWD) clean
